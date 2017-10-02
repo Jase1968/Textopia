@@ -11,7 +11,7 @@ if(selected)
     if(keyboard_check(vk_backspace) && string_length(text) > 0 && (keyDownTime == 0 || keyDownTime >= room_speed / 2))
     {
         if(selectedStart != -1)
-            textbox_text_selected_remove(id);
+            textbox("textbox_text_selected_remove", id, false, false);
         else
         {
             text = string_delete(text, cursor, 1);
@@ -23,7 +23,7 @@ if(selected)
     else if(keyboard_check(vk_delete) && string_length(text) > 0 && (keyDownTime == 0 || keyDownTime >= room_speed / 2))
     {
         if(selectedStart != -1)
-            textbox_text_selected_remove(id);
+            textbox("textbox_text_selected_remove", id, false, false);
         else
             text = string_delete(text, cursor + 1, 1);
             
@@ -43,7 +43,7 @@ if(selected)
         if(keyboard_check(vk_control))
         {
             var temp = cursor;
-            cursor = string_get_highest_index(text, " ", cursor);
+            cursor = textbox("string_get_highest_index", text, " ", cursor);
             if(cursor > temp)
                 cursor = 0;
         }
@@ -63,7 +63,7 @@ if(selected)
         if(keyboard_check(vk_control))
         {
             var temp = cursor;
-            cursor = string_get_lowest_index(text, " ", cursor + 1) - 1;
+            cursor = textbox("string_get_lowest_index", text, " ", cursor + 1) - 1;
             if(cursor < temp)
                 cursor = string_length(text);
         }
@@ -73,18 +73,18 @@ if(selected)
     }
     else if(keyboard_check(vk_control) && keyboard_check(ord("C")) && selectedStart != -1)
     {
-        clipboard_set_text(textbox_text_selected_get(id));
+        clipboard_set_text(textbox("textbox_text_selected_get", id, false, false));
     }
     else if(keyboard_check(vk_control) && keyboard_check(ord("X")) && selectedStart != -1)
     {
-        clipboard_set_text(textbox_text_selected_get(id));
-        textbox_text_selected_remove(id);
+        clipboard_set_text(textbox("textbox_text_selected_get", id, false, false));
+        textbox("textbox_text_selected_remove", id, false, false);
     }
     else if(keyboard_check(vk_control) && keyboard_check(ord("V")) && clipboard_has_text() && keyDownTime == 0)
     {
         if(selectedStart != -1)
-            textbox_text_selected_remove(id);
-        textbox_text_insert(id, clipboard_get_text());
+            textbox("textbox_text_selected_remove", id, false, false);
+        textbox("textbox_text_insert", id, clipboard_get_text(), false);
     }
     else if(keyboard_check(vk_control) && keyboard_check(ord("A")) && string_length(text) > 0)
     {
@@ -117,11 +117,11 @@ if(selected)
     else if(keyboard_string != "")
     {
         if(selectedStart != -1)
-            textbox_text_selected_remove(id);
+            textbox("textbox_text_selected_remove", id, false, false);
         if(keyboard_string == "#")
-            textbox_text_insert(id, "\\#");
+            textbox("textbox_text_insert", id, "\\#", false);
         else
-            textbox_text_insert(id, keyboard_string);
+            textbox("textbox_text_insert", id, keyboard_string, false);
         keyboard_string = "";
     }
     if(keyboard_lastkey != vk_lshift && keyboard_lastkey != vk_rshift && keyboard_lastkey != vk_lcontrol && keyboard_lastkey != vk_rcontrol)

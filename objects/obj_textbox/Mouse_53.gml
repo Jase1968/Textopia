@@ -5,7 +5,7 @@ if(mouse_x >= x && mouse_y >= y && mouse_x < x + sprite_width && mouse_y < y + s
     alarm[0] = cursorBlinkTime;
     keyboard_string = "";
     selectedStart = -1;
-    cursor = textbox_get_cursor_at(id, mouse_x);
+    cursor = textbox("textbox_get_cursor_at", id, mouse_x, false);
     dragSelecting = true;
 }
 else
