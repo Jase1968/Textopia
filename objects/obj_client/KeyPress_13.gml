@@ -6,27 +6,37 @@ if(online){
  buffer_write(buffer, buffer_string, keyboard_string);
  network_send_packet(socket, buffer, buffer_tell(buffer));
 }else{
- history += "\n" + keyboard_string;
+ hist[0]++
+ hist[hist[0]] = keyboard_string;
+ col[hist[0]] = myColor;
  switch(response){
   case -1:
    if(compSentence(keyboard_string, "new") > .8){
-    history += "\n" + "Create username:";
+    hist[0]++;
+    hist[hist[0]] = "Create username:";
+	col[hist[0]] = c_yellow;
     response = createUsername;
    }else if(compSentence(keyboard_string, "continue") > .8){
-    history += "\n" + "Enter username:";
+	hist[0]++;
+    hist[hist[0]] = "Enter username:";
+	col[hist[0]] = c_yellow;
 	response = loadUsername;
    }
    break;
    
   case createUsername:
    newName = keyboard_string;
-   history += "\n" + "Create password:";
+   hist[0]++;
+   hist[hist[0]] = "Create password:";
+   col[hist[0]] = c_yellow;
    response = createPassword;
    break;
    
   case loadUsername:
    loadName = keyboard_string;
-   history += "\n" + "Enter password:";
+   hist[0]++;
+   hist[hist[0]] = "Enter password:";
+   col[hist[0]] = c_yellow;
    response = loadPassword;
    break;
    
