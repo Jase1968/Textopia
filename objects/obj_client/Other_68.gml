@@ -15,7 +15,7 @@ switch(buffer_read(rbuffer, buffer_u8)){
    hist[hist[0]] = "Username taken.";
    col[hist[0]] = c_yellow;
    hist[0]++;
-   hist[hist[0]] = "'New' or 'Continue'";
+   hist[hist[0]] = "/New or /Continue";
    col[hist[0]] = c_yellow;
    response = -1;
   }
@@ -30,7 +30,10 @@ switch(buffer_read(rbuffer, buffer_u8)){
    name = loadName;
   }else{
    hist[0]++;
-   hist[hist[0]] = "Username or password incorrect." + "\n" + "'New' or 'Continue'";
+   hist[hist[0]] = "Username or password incorrect.";
+   col[hist[0]] = c_yellow;
+   hist[0]++;
+   hist[hist[0]] = "/New or /Continue";
    col[hist[0]] = c_yellow;
    response = -1;
   }
@@ -41,10 +44,14 @@ switch(buffer_read(rbuffer, buffer_u8)){
   //show_message_async(message);
   hist[0]++;
   hist[hist[0]] = message;
-  col[hist[0]] = c_red;
+  col[hist[0]] = buffer_read(rbuffer, buffer_u32);
   break;
  
  case timeUpdate:
   time = buffer_read(rbuffer, buffer_u16);
+  break;
+ 
+ case colorChange:
+  myColor = buffer_read(rbuffer, buffer_u32);
   break;
 }

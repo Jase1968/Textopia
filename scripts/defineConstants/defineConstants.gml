@@ -6,6 +6,7 @@ chat = 0;
 register = 1;
 login = 2;
 timeUpdate = 3;
+colorChange = 4;
 
 //response type
 createUsername = 0;

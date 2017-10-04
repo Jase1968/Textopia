@@ -11,12 +11,12 @@ if(online){
  col[hist[0]] = myColor;
  switch(response){
   case -1:
-   if(compSentence(keyboard_string, "new") > .8){
+   if(compSentence(keyboard_string, "/new") > .8){
     hist[0]++;
     hist[hist[0]] = "Create username:";
 	col[hist[0]] = c_yellow;
     response = createUsername;
-   }else if(compSentence(keyboard_string, "continue") > .8){
+   }else if(compSentence(keyboard_string, "/continue") > .8){
 	hist[0]++;
     hist[hist[0]] = "Enter username:";
 	col[hist[0]] = c_yellow;
