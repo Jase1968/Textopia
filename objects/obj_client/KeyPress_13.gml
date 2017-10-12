@@ -6,37 +6,27 @@ if(online){
  buffer_write(buffer, buffer_string, keyboard_string);
  network_send_packet(socket, buffer, buffer_tell(buffer));
 }else{
- hist[0]++
- hist[hist[0]] = keyboard_string;
- col[hist[0]] = myColor;
+ addLine(keyboard_string, myColor);
  switch(response){
   case -1:
    if(compSentence(keyboard_string, "/new") > .8){
-    hist[0]++;
-    hist[hist[0]] = "Create username:";
-	col[hist[0]] = c_yellow;
+    addLine("Create username:", c_yellow);
     response = createUsername;
    }else if(compSentence(keyboard_string, "/continue") > .8){
-	hist[0]++;
-    hist[hist[0]] = "Enter username:";
-	col[hist[0]] = c_yellow;
+	addLine("Enter username:", c_yellow);
 	response = loadUsername;
    }
    break;
    
   case createUsername:
    newName = keyboard_string;
-   hist[0]++;
-   hist[hist[0]] = "Create password:";
-   col[hist[0]] = c_yellow;
+   addLine("Create password:", c_yellow);
    response = createPassword;
    break;
    
   case loadUsername:
    loadName = keyboard_string;
-   hist[0]++;
-   hist[hist[0]] = "Enter password:";
-   col[hist[0]] = c_yellow;
+   addLine("Enter password:", c_yellow);
    response = loadPassword;
    break;
    
@@ -58,4 +48,16 @@ if(online){
 }
 
 buffer_delete(buffer);
+if(keyboard_string == "/exit")
+ game_end();
+else if(keyboard_string == "/logout")
+ game_restart();
+else if(keyboard_string == "/windowed" ||
+		keyboard_string == "/window" ||
+		keyboard_string == "/fullscreen"){
+ if(window_get_fullscreen()){
+  window_set_size(1024, 768);
+ }
+ window_set_fullscreen(!window_get_fullscreen());
+}
 keyboard_string = "";

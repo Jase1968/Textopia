@@ -5,46 +5,32 @@ var rbuffer = ds_map_find_value(async_load, "buffer");
 switch(buffer_read(rbuffer, buffer_u8)){
  case register:
   if(buffer_read(rbuffer, buffer_bool)){
-   hist[0]++;
-   hist[hist[0]] = "Register successful.";
-   col[hist[0]] = c_yellow;
+   addLine("Register successful.", c_yellow);
    online = true;
    name = newName;
   }else{
-   hist[0]++;
-   hist[hist[0]] = "Username taken.";
-   col[hist[0]] = c_yellow;
-   hist[0]++;
-   hist[hist[0]] = "/New or /Continue";
-   col[hist[0]] = c_yellow;
+   addLine("Username taken.", c_yellow);
+   addLine("/New or /Continue", c_yellow);
    response = -1;
   }
   break;
   
  case login:
   if(buffer_read(rbuffer, buffer_bool)){
-   hist[0]++;
-   hist[hist[0]] = "Login successful.";
-   col[hist[0]] = c_yellow;
+   addLine("Login successful.", c_yellow);
    online = true;
    name = loadName;
   }else{
-   hist[0]++;
-   hist[hist[0]] = "Username or password incorrect.";
-   col[hist[0]] = c_yellow;
-   hist[0]++;
-   hist[hist[0]] = "/New or /Continue";
-   col[hist[0]] = c_yellow;
+   addLine("Username or password incorrect.", c_yellow);
+   addLine("/New or /Continue", c_yellow);
    response = -1;
   }
   break;
   
  case chat:
   var message = buffer_read(rbuffer, buffer_string);
-  //show_message_async(message);
-  hist[0]++;
-  hist[hist[0]] = message;
-  col[hist[0]] = buffer_read(rbuffer, buffer_u32);
+  var color = buffer_read(rbuffer, buffer_u32);
+  addLine(message, color);
   break;
  
  case timeUpdate:
