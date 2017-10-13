@@ -6,6 +6,7 @@ socket = network_create_socket(network_socket_tcp);
 
 ip = "127.0.0.1"; //local test
 ip = "192.168.1.11"; //LAN
+ip = "75.134.43.51"; //Jason's Server IP
 
 network_set_config(network_config_connect_timeout, 4000);
 

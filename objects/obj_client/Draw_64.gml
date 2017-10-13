@@ -1,3 +1,4 @@
+if(room_width == 0) return;
 var inputLine;
 if(online) inputLine = name + ">" + keyboard_string;
 else inputLine = ">" + keyboard_string;
@@ -10,6 +11,7 @@ for(var h = 1; h <= hist[0]; h++){
 }
 
 var drawColor = myColor;
+if(string_char_at(keyboard_string, 0) == "/"){
 var rgb = split(string_replace_all(string_replace_all(keyboard_string, " ", ""), "/", ""), ",");
 if(rgb[0] == 3 && string_count(rgb[1] + rgb[2] + rgb[3], string_digits(keyboard_string))){
  var red = real(string_digits(rgb[1]));
@@ -19,5 +21,6 @@ if(rgb[0] == 3 && string_count(rgb[1] + rgb[2] + rgb[3], string_digits(keyboard_
     green >= 0 && green < 256 &&
 	blue >= 0 && blue < 256)
  var drawColor = make_color_rgb(red, green, blue);
+}
 }
 draw_text_ext_color(0, room_height - string_height_ext(inputLine + "_", 16, room_width), inputLine + addSpace + blinker, 16, room_width, drawColor, drawColor, drawColor, drawColor, 1);
